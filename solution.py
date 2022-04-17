@@ -48,12 +48,11 @@ def receiveOnePing(mySocket, ID, timeout, destAddr):
         recPacket, addr = mySocket.recvfrom(1024)
 
         # Fill in start
-        type, code, checksum, identifier, seq = struct.unpack("bbHHh", recPacket[20:28])
-        if type != 8 and identifier == ID:
+        icmptype, code, checksum, id, seq = struct.unpack("bbHHh", recPacket[20:28])
+        if icmptype != 8 and id == ID:
             bytesInDouble = struct.calcsize("d")
             timeSent = struct.unpack("d", recPacket[28:28 + bytesInDouble])[0]
-            delay = timeReceived - timeSent
-            return delay
+            return (timeReceived - timeSent)
 
         # Fill in end
         timeLeft = timeLeft - howLongInSelect
