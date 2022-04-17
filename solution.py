@@ -53,6 +53,8 @@ def receiveOnePing(mySocket, ID, timeout, destAddr):
             bytesInDouble = struct.calcsize("d")
             timeSent = struct.unpack("d", recPacket[28:28 + bytesInDouble])[0]
             return (timeReceived - timeSent)
+        else:
+            return "Request timed out." 
 
         # Fill in end
         timeLeft = timeLeft - howLongInSelect
