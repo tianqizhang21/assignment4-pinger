@@ -50,7 +50,7 @@ def receiveOnePing(mySocket, ID, timeout, destAddr):
         # Fill in start
         icmprec = recPacket[20:28]
         type, code, checksum, identifier, sequence = struct.unpack("bbHHh", icmprec)
-        if type != 8 and identifier == ID:
+        if identifier == ID:
             timeSent = struct.unpack("d", recPacket[28:36])[0]
             return timeReceived - timeSent
 
